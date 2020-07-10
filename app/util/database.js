@@ -1,9 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
+const logger = require('./logger');
 
 const DBSOURCE = process.env.DBSOURCE || '../../data/db.sqlite';
 const db = new sqlite3.Database(DBSOURCE, (connectError) => {
   if (connectError) {
-    console.error(connectError.message);
+    logger.error(connectError.message);
     throw connectError;
   } else {
     db.run(`create table url (
