@@ -10,6 +10,10 @@
     {
       "name": "Scan",
       "description": "API for scanning URLs"
+    },
+    {
+      "name": "Metadata",
+      "description": "API for fetching URL metadata"
     }
   ],
   "schemes": [
@@ -22,12 +26,12 @@
     "application/json"
   ],
   "paths": {
-    "/scan": {
+    "/metadata": {
       "post": {
         "tags": [
-          "Scan"
+          "Metadata"
         ],
-        "summary": "Scan URL for relevant artifacts",
+        "summary": "Fetch URL metadata, if it has been previously scanned",
         "parameters": [{
           "in": "body",
           "name": "url",
@@ -56,10 +60,84 @@
               "properties": {
                 "status": {
                   "type": "string"
+                },
+                "data": {
+                  "$ref": "#/definitions/Metadata"
                 }
               }
             }
           }
+        }
+      }
+    },
+    "/scan": {
+      "post": {
+        "tags": [
+          "Scan"
+        ],
+        "summary": "Scan URL for relevant artifacts",
+        "parameters": [{
+          "in": "body",
+          "name": "url",
+          "description": "URL to be scanned",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "required": [
+              "url"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }, {
+          "in": "query",
+          "name": "rescan",
+          "description": "Flag to specify whether the URL should be rescanned",
+          "required": false,
+          "type": "boolean"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "data": {
+                  "$ref": "#/definitions/Metadata"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Metadata": {
+      "properties": {
+        "sourceUrl": {
+          "type": "string"
+        },
+        "destinationUrl": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "number"
+        },
+        "ipAddr": {
+          "type": "string"
+        },
+        "screenshot": {
+          "type": "string"
         }
       }
     }

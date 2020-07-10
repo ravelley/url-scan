@@ -3,7 +3,7 @@ const { combine, timestamp, printf } = require('winston').format;
 
 const level = process.env.LOG_LEVEL || 'debug';
 // eslint-disable-next-line no-shadow
-const customFormat = printf(({ level, message, timestamp }) => `${timestamp} ${level.toUpperCase()}: ${message}`);
+const customFormat = printf(({ level, message, timestamp }) => `${timestamp} [${level.toUpperCase()}]: ${message}`);
 
 const logger = createLogger({
   format: combine(
@@ -26,5 +26,12 @@ const logger = createLogger({
     }),
   ],
 });
+
+logger.stream = {
+  // eslint-disable-next-line no-unused-vars
+  write: (message, encoding) => {
+    logger.info(message);
+  },
+};
 
 module.exports = logger;

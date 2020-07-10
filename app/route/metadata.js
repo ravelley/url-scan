@@ -1,11 +1,11 @@
 const express = require('express');
 const jsend = require('jsend');
-const scanService = require('../service/scan');
+const metadataService = require('../service/metadata');
 
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  scanService.scanUrl(req.body.url, req.query.rescan || false)
+  metadataService.getMetadata(req.body.url)
     .then((result) => res.json(jsend.success(result)))
     .catch((err) => next(err));
 });

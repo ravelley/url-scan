@@ -12,7 +12,6 @@ Web service API to scan a given URL and return various artifacts from it.
     ```
     npm install
     ```
-1. Set PORT (default: 8000)
 1. Start server
     ```
     npm start
@@ -23,3 +22,7 @@ Web service API to scan a given URL and return various artifacts from it.
     ```
 1. App available at localhost:8000
 1. Documentation available at localhost:8000/api/v1/doc
+
+### Environment Variables
+* PORT (default: 8000) - port to run application
+* LOG_LEVEL (default: DEBUG) - level of logs to view

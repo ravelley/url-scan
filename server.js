@@ -1,11 +1,9 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const jsend = require('jsend');
-const morgan = require('morgan');
 const logger = require('./app/util/logger');
 
 const app = express();
-app.use(morgan('short', { stream: logger.stream }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
