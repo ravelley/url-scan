@@ -1,0 +1,67 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "URL Scan API",
+    "description": "API to scan URLs for relevant artifacts"
+  },
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Scan",
+      "description": "API for scanning URLs"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/scan": {
+      "post": {
+        "tags": [
+          "Scan"
+        ],
+        "summary": "Scan URL for relevant artifacts",
+        "parameters": [{
+          "in": "body",
+          "name": "url",
+          "description": "URL to be scanned",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "required": [
+              "url"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
